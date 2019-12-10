@@ -1,0 +1,24 @@
+{application, eclero,
+ [{description, "eclero a undecided application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {eclero_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    cowboy,
+    aten
+   ]},
+  {env,[]},
+  {modules, [
+	     eclero_app,
+	     eclero_sup,
+	     eclero_decision_server,
+	     eclero_detector_server,
+	     eclero_health,
+	     eclero_http
+	    ]},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
