@@ -35,7 +35,7 @@ handle_continue({register, RNodes}, #state{detector_module = DM,
     {noreply, State#state{nodes = INodes}, {continue, up}};
 
 handle_continue(up, #state{detector_module = DM, nodes = Nodes} = State) ->
-    Node = DM:node(),
+    Node = eclero_detector:node(DM),
     Event = up,
     Nodes0 = update_interest(Nodes, Node, Event),
 
@@ -69,7 +69,7 @@ register_interest(_DetectorModule, [], INodes) ->
     {ok, INodes};
 
 register_interest(DetectorModule, [Node | Nodes], INodes) ->
-    {ok, Status} = DetectorModule:register(Node),
+    {ok, Status} = eclero_detector:register(DetectorModule, Node),
 
     INodes0 = maps:put(Node, Status, INodes),
 
@@ -81,7 +81,7 @@ deregister_interest(DetectorModule, INodes) when is_map(INodes) ->
     maps:map(Fun, INodes);
 
 deregister_interest(DetectorModule, Node) when is_atom(Node) ->
-    ok = DetectorModule:unregister(Node),
+    ok = eclero_detector:unregister(DetectorModule, Node),
     undefiend.
 
 

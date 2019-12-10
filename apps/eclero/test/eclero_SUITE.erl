@@ -127,7 +127,7 @@ init_per_group(detector, Config) ->
 
     ok = application:load(eclero),
     ok = application:set_env(eclero, nodes, Nodes),
-    ok = application:set_env(eclero, detector_module, ?MODULE),
+    ok = application:set_env(eclero, detector_module, fake_detector),
 
     [{server, detector}, {nodes, Nodes} | Config].
 
@@ -209,7 +209,8 @@ start_and_stop(Config) ->
     NodesCfg = ?config(nodes, Config),
     Nodes = maps:keys(NodesCfg),
 
-    [] = [RC || N <- Nodes, RC <- [ct_rpc:call(N, application, stop, [eclero])], RC /= ok],
+    [] = [RC || N <- Nodes,
+        RC <- [ct_rpc:call(N, application, stop, [eclero])], RC /= ok],
 
     ok.
 
@@ -220,9 +221,11 @@ ping_and_check(Config) ->
     NodesCfg = ?config(nodes, Config),
     Nodes = maps:keys(NodesCfg),
 
-    [] = [RC || N <- Nodes, RC <- [ping(N, NodesCfg)], RC /= ok],
+    [] = [RC || N <- Nodes,
+        RC <- [ping(N, NodesCfg)], RC /= ok],
 
-    Fun = fun () -> [RC || N <- Nodes, RC <- [check(N, NodesCfg)], RC /= ok] end,
+    Fun = fun () -> [RC || N <- Nodes,
+        RC <- [check(N, NodesCfg)], RC /= ok] end,
 
     true = wait_expect(Fun, [], 3),
 
@@ -235,11 +238,13 @@ missing_one_node(Config) ->
     NodesCfg = ?config(nodes, Config),
     Nodes = maps:keys(NodesCfg),
 
-    [] = [RC || N <- Nodes, RC <- [ping(N, NodesCfg)], RC /= ok],
+    [] = [RC || N <- Nodes,
+        RC <- [ping(N, NodesCfg)], RC /= ok],
 
     ct:sleep(1000),
 
-    Fun = fun () -> [RC || N <- Nodes, RC <- [check_service_unavailable(N, NodesCfg)], RC /= ok] end,
+    Fun = fun () -> [RC || N <- Nodes,
+        RC <- [check_service_unavailable(N, NodesCfg)], RC /= ok] end,
 
     true = wait_expect(Fun, [], 3),
 
@@ -352,7 +357,8 @@ make_node_http_port(Port) ->
 
 search_paths() ->
     Ld = code:lib_dir(),
-    lists:filter(fun (P) -> string:prefix(P, Ld) =:= nomatch end, code:get_path()).
+    Fun = fun (P) -> string:prefix(P, Ld) =:= nomatch end,
+    lists:filter(Fun, code:get_path()).
 
 start_slave(N, StartOpts) ->
     ErlFlags = string:join(["-pa" | search_paths()], " "),
@@ -416,7 +422,8 @@ ping(Node, Nodes) ->
 
     Response = httpc:request(head, {Url, []}, [], []),
 
-    ct:pal(info, ?LOW_IMPORTANCE, "~s: node ~s response ~p", [?FUNCTION_NAME, Node, Response]),
+    ct:pal(info, ?LOW_IMPORTANCE, "~s: node ~s response ~p",
+        [?FUNCTION_NAME, Node, Response]),
 
     ok.
 
@@ -442,15 +449,7 @@ check(Node, Nodes, ExpectStatus) ->
             ct:fail({badresult, {Node, Result}})
     end,
 
-    ct:pal(info, ?LOW_IMPORTANCE, "~s: node ~s response ~p", [?FUNCTION_NAME, Node, Result]),
+    ct:pal(info, ?LOW_IMPORTANCE, "~s: node ~s response ~p",
+        [?FUNCTION_NAME, Node, Result]),
 
-    ok.
-
-node() ->
-    n1.
-
-register(_Node) ->
-    {ok, up}.
-
-unregister(_Node) ->
     ok.
