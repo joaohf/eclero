@@ -28,12 +28,8 @@ init(_Args) ->
 
     {ok, #state{detector_module = Module}, {continue, {register, Nodes}}}.
 
-<<<<<<< HEAD
-handle_continue({register, RNodes}, #state{detector_module = DM, nodes = Nodes} = State) ->
-=======
 handle_continue({register, RNodes}, #state{detector_module = DM,
-					   nodes = Nodes} = State) ->
->>>>>>> 839e0b524e81c9e701b30dd604a3a82d3558c814
+                                           nodes = Nodes} = State) ->
     {ok, INodes} = register_interest(DM, RNodes, Nodes),
 
     {noreply, State#state{nodes = INodes}, {continue, up}};
