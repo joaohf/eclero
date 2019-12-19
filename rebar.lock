@@ -2,6 +2,10 @@
 [{<<"aten">>,{pkg,<<"aten">>,<<"0.5.2">>},0},
  {<<"cowboy">>,{pkg,<<"cowboy">>,<<"2.7.0">>},0},
  {<<"cowlib">>,{pkg,<<"cowlib">>,<<"2.8.0">>},1},
+ {<<"epmdless">>,
+  {git,"https://github.com/tsloughter/epmdless",
+       {ref,"ae7fa36cebd3c84c071015182ac46b9531591d8f"}},
+  0},
  {<<"ranch">>,{pkg,<<"ranch">>,<<"1.7.1">>},1}]}.
 [
 {pkg_hash,[
