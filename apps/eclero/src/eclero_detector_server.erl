@@ -23,10 +23,12 @@ start_link() ->
 init(_Args) ->
     process_flag(trap_exit, true),
 
-    Nodes = application:get_env(eclero, nodes, []),
+    Nodes0 = application:get_env(eclero, nodes, []),
     Module = application:get_env(eclero, detector_module, eclero_detector),
 
-    {ok, #state{detector_module = Module}, {continue, {register, Nodes}}}.
+    Nodes1 = merge_nodes(Nodes0),
+
+    {ok, #state{detector_module = Module}, {continue, {register, Nodes1}}}.
 
 handle_continue({register, RNodes}, #state{detector_module = DM,
                                            nodes = Nodes} = State) ->
@@ -64,6 +66,11 @@ code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 
 %% internal functions
+
+merge_nodes(Nodes) ->
+    Node = erlang:node(),
+    lists:umerge(Nodes, [Node]).
+
 
 register_interest(_DetectorModule, [], INodes) ->
     {ok, INodes};

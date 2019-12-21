@@ -6,6 +6,7 @@
   {applications,
    [kernel,
     stdlib,
+    epmdless,
     cowboy,
     aten
    ]},
