@@ -25,8 +25,8 @@ init(Req, Opts) ->
     {cowboy_rest, Req, Opts}.
 
 service_available(Req, State) ->
-    Res = eclero_decision_server:is_health(),
-    {Res, Req, State}.
+    %Res = eclero_decision_server:is_health(),
+    {true, Req, State}.
 
 content_types_provided(Req, State) ->
     {[
@@ -35,6 +35,9 @@ content_types_provided(Req, State) ->
 
 to_text(Req, State) ->
     Body = to_text(eclero_health:get()),
+
+    eclero_metric:request_check(),
+
     {Body, Req, State}.
 
 %% internal functions

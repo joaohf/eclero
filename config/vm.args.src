@@ -10,3 +10,5 @@
 -start_epmd false
 
 -epmd_module epmdless_client
+
+-pa releases/${REL_VSN}/consolidated

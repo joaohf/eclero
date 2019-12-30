@@ -6,11 +6,33 @@
   {git,"https://github.com/oltarasenko/epmdless",
        {ref,"bcb559c80fec7f4c2daa2418fc685c6acbf893cb"}},
   0},
- {<<"ranch">>,{pkg,<<"ranch">>,<<"1.7.1">>},1}]}.
+ {<<"exprotobuf">>,{pkg,<<"exprotobuf">>,<<"1.2.17">>},2},
+ {<<"gpb">>,{pkg,<<"gpb">>,<<"4.10.5">>},1},
+ {<<"katja">>,
+  {git,"https://github.com/joaohf/katja",
+       {ref,"51ff6d1225190d416b4bf4a16f6decbcaf8ceaa1"}},
+  0},
+ {<<"poolboy">>,{pkg,<<"poolboy">>,<<"1.5.2">>},2},
+ {<<"qex">>,{pkg,<<"qex">>,<<"0.5.0">>},2},
+ {<<"ranch">>,{pkg,<<"ranch">>,<<"1.7.1">>},1},
+ {<<"riemannx">>,{pkg,<<"riemannx">>,<<"4.1.2">>},1},
+ {<<"telemetry">>,{pkg,<<"telemetry">>,<<"0.4.1">>},2},
+ {<<"telemetry_metrics">>,{pkg,<<"telemetry_metrics">>,<<"0.3.1">>},1},
+ {<<"telemetry_metrics_riemann">>,
+  {pkg,<<"telemetry_metrics_riemann">>,<<"0.2.0">>},
+  0}]}.
 [
 {pkg_hash,[
  {<<"aten">>, <<"2B4D31261D36C0A11CD6D04AE3F96C8951EB32106E9D2013A5B33BA14F7875AE">>},
  {<<"cowboy">>, <<"91ED100138A764355F43316B1D23D7FF6BDB0DE4EA618CB5D8677C93A7A2F115">>},
  {<<"cowlib">>, <<"FD0FF1787DB84AC415B8211573E9A30A3EBE71B5CBFF7F720089972B2319C8A4">>},
- {<<"ranch">>, <<"6B1FAB51B49196860B733A49C07604465A47BDB78AA10C1C16A3D199F7F8C881">>}]}
+ {<<"exprotobuf">>, <<"3003937DA617F588A8FB63EBDD7B127A18D78D6502623C272076FD54C07C4DE1">>},
+ {<<"gpb">>, <<"7884C1579682B9EFAF774B532AEBDE2C896CDBDF8C85695E93C66E34414A26F5">>},
+ {<<"poolboy">>, <<"392B007A1693A64540CEAD79830443ABF5762F5D30CF50BC95CB2C1AAAFA006B">>},
+ {<<"qex">>, <<"5A3A9BECF67D4006377C4C247FFDAAA8AE5B3634A0CAADB788DC24D6125068F4">>},
+ {<<"ranch">>, <<"6B1FAB51B49196860B733A49C07604465A47BDB78AA10C1C16A3D199F7F8C881">>},
+ {<<"riemannx">>, <<"9E6A31CE5130F63B1D1463B2822637621A395AB1C47A306C4CBDDEEC27632240">>},
+ {<<"telemetry">>, <<"AE2718484892448A24470E6AA341BC847C3277BFB8D4E9289F7474D752C09C7F">>},
+ {<<"telemetry_metrics">>, <<"799E7A3E40EBE740DF265346DD1F5FF3E3C3E285F1436CD51FC8AC3B2BB7A772">>},
+ {<<"telemetry_metrics_riemann">>, <<"A8AE83B94350C6076885C533B3A0CF297E4B52DAA8C38A14432C564C060DCB2F">>}]}
 ].

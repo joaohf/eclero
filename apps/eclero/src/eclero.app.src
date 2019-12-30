@@ -8,7 +8,9 @@
     stdlib,
     epmdless,
     cowboy,
-    aten
+    aten,
+    katja,
+    telemetry
    ]},
   {env,[]},
   {modules, [
