@@ -1,8 +1,11 @@
 before_install:
    - wget https://s3.amazonaws.com/rebar3/rebar3
    - chmod u+x ./rebar3
+   - mix local.rebar --force
+   - mix local.hex --force
 install: "true"
-language: erlang
+language: elixir
+elixir: '1.8.2'
 sudo: false
 otp_release:
   - 22.0
