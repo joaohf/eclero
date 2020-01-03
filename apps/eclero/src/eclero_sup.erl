@@ -26,6 +26,8 @@ start_link() ->
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
 init([]) ->
+    MetricArgs = eclero_metric:options(),
+
     SupFlags = #{strategy => one_for_all,
                  intensity => 1,
                  period => 5},
@@ -35,7 +37,9 @@ init([]) ->
     Detector = #{id => eclero_detector_server,
                  start => {eclero_detector_server, start_link, []},
                  shutdown => 5000},
-    ChildSpecs = [Decision, Detector],
+    Metric = 'Elixir.TelemetryMetricsRiemann':child_spec(MetricArgs),
+
+    ChildSpecs = [Metric, Decision, Detector],
     {ok, {SupFlags, ChildSpecs}}.
 
 %% internal functions

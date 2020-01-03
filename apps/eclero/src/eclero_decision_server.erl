@@ -41,6 +41,9 @@ init(_Args) ->
     {ok, #state{}}.
 
 handle_continue(_Continue, State) ->
+
+    eclero_metric:node(1, 0),
+
     {noreply, State}.
 
 handle_call({nodes}, _From, #state{nodes = Nodes} = State) ->
@@ -54,15 +57,25 @@ handle_call({is_health}, _From, #state{nodes_up = 0} = State) ->
 handle_cast({node_status, Node, down}, #state{nodes_up = Up,
                                               nodes_down = Down,
                                               nodes = Nodes} = State) ->
-    {noreply, State#state{nodes_up = decrease(Up),
-                          nodes_down = Down + 1,
+    NDown = Down + 1,
+    NUp = decrease(Up),
+
+    eclero_metric:node(NUp, NDown),
+
+    {noreply, State#state{nodes_up = NUp,
+                          nodes_down = NDown,
                           nodes = sets:del_element(Node, Nodes)}};
 
 handle_cast({node_status, Node, up}, #state{nodes_up = Up,
                                             nodes_down = Down,
                                             nodes = Nodes} = State) ->
-    {noreply, State#state{nodes_up = Up + 1,
-                          nodes_down = decrease(Down),
+    NDown = decrease(Down),
+    NUp = Up + 1,
+
+    eclero_metric:node(NUp, NDown),
+
+    {noreply, State#state{nodes_up = NUp,
+                          nodes_down = NDown,
                           nodes = sets:add_element(Node, Nodes)}}.
 
 handle_info(_Info, State) ->
